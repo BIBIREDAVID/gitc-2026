@@ -73,68 +73,10 @@
   flex-direction: column;
 }
 
-/* Generic field wrapper (used by text inputs, radio groups, checkbox groups) */
-.field {
-  border: none;
-  padding: 0;
-  margin: 0 0 1.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.field label,
-.field legend {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-text-dim);
-  padding: 0;
-}
-
-.field-required {
-  color: var(--color-magenta);
-}
-
-.field-hint {
-  margin: -0.15rem 0 0.15rem;
-  font-size: 0.85rem;
-  color: var(--color-text-dim);
-  line-height: 1.45;
-}
-
-.field input[type='text'],
-.field input[type='email'],
-.field input[type='tel'] {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  color: var(--color-text);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 0.85rem 0.9rem;
-  min-height: 44px;
-  outline: none;
-  width: 100%;
-}
-
-.field input::placeholder {
-  color: var(--color-text-dim);
-  opacity: 0.6;
-}
-
-.field input[type='text']:focus,
-.field input[type='email']:focus,
-.field input[type='tel']:focus {
-  border-color: var(--color-cyan);
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15);
-}
-
-.field[aria-invalid='true'] input,
-.field input[aria-invalid='true'] {
-  border-color: var(--color-magenta);
-}
+/* Generic field wrapper (used by text inputs, radio groups, checkbox groups)
+   base styles live in theme.css — it's shared across Register, admin, and
+   check-in, which are separate lazy-loaded chunks that don't import this
+   file. Only Register-page-specific option-list styling stays here. */
 
 /* Radio / checkbox option lists */
 .option-list {

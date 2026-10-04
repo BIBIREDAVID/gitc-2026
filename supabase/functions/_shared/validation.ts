@@ -12,7 +12,7 @@ const PICKUP_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom', 'lasu_ojo', 'oth
 // from there) and 'other' (it's a fixed list of actual bus routes).
 const PICKUP_POINT_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom'];
 const YES_NO_IDS = ['yes', 'no'];
-const GENDER_IDS = ['male', 'female', 'prefer_not_to_say'];
+const GENDER_IDS = ['male', 'female'];
 const ROLE_IDS = [
   'undergraduate',
   'graduate',
@@ -31,9 +31,6 @@ const INTEREST_IDS = [
   'product_management',
   'robotics',
   'video_editing',
-  'cloud_devops',
-  'digital_marketing',
-  'career_development',
   'not_sure',
   'other',
 ];

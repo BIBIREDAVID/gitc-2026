@@ -34,7 +34,6 @@ export const YES_NO = [
 export const GENDER_OPTIONS = [
   { id: 'male', label: 'Male' },
   { id: 'female', label: 'Female' },
-  { id: 'prefer_not_to_say', label: 'Prefer not to say' },
 ];
 
 export const ROLE_OPTIONS = [
@@ -56,9 +55,6 @@ export const INTEREST_OPTIONS = [
   { id: 'product_management', label: 'Product Management' },
   { id: 'robotics', label: 'Robotics' },
   { id: 'video_editing', label: 'Video Editing and Animation' },
-  { id: 'cloud_devops', label: 'Cloud/DevOps' },
-  { id: 'digital_marketing', label: 'Digital Marketing' },
-  { id: 'career_development', label: 'Career Development' },
   { id: 'not_sure', label: 'Not sure yet' },
   { id: 'other', label: 'Other' },
 ];

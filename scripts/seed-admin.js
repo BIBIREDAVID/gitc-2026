@@ -45,6 +45,7 @@ async function run() {
     if (!user) throw new Error(`User exists per createUser() but couldn't be found again: ${email}`);
     userId = user.id;
     const { error: updateError } = await supabase.auth.admin.updateUserById(userId, {
+      password,
       app_metadata: { ...user.app_metadata, [role]: true },
     });
     if (updateError) throw updateError;

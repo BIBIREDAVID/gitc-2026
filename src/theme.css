@@ -77,6 +77,23 @@ a {
   outline-offset: 2px;
 }
 
+/* Browsers force their own background (usually pale yellow/white) on an
+   autofilled input, ignoring page CSS entirely — this repaints it back to
+   the theme via a huge inset box-shadow (the only property browsers let an
+   autofill style override), applied site-wide since every form (register,
+   admin login, check-in login) hits this the same way. The long transition
+   delay stops a one-frame flash of the native color before this applies. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--color-text);
+  -webkit-box-shadow: 0 0 0 1000px var(--color-bg) inset;
+  box-shadow: 0 0 0 1000px var(--color-bg) inset;
+  caret-color: var(--color-text);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 /* Respect the user's motion preference: flatten any transition/animation
    (glows, progress bars, smooth-scroll-to-error, overlay fades, etc.)
    rather than hunting down every individual declaration. */

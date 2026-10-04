@@ -1,0 +1,36 @@
+{
+  "name": "gitc-2026",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "optimize:flyer": "node scripts/optimize-flyer.js",
+    "db:push": "supabase db push",
+    "functions:deploy": "supabase functions deploy",
+    "seed:admin": "node scripts/seed-admin.js",
+    "seed": "node scripts/seed.js",
+    "set-role": "node scripts/setRole.js",
+    "test:e2e": "node --test tests/e2e-registration.test.js",
+    "test:rls": "node --test tests/rls.test.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "html5-qrcode": "^2.3.8",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "sharp": "^0.35.5",
+    "vite": "^8.3.0"
+  }
+}

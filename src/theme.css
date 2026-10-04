@@ -1,0 +1,128 @@
+/* Google Fonts are loaded from index.html via <link rel="preconnect"> +
+   <link rel="stylesheet">, not @import here — @import nests the fetch
+   inside this stylesheet's own render-blocking chain (fetch CSS -> parse ->
+   discover @import -> fetch again), which measurably delays first paint.
+   A <link> in <head> lets the browser discover and fetch it immediately,
+   in parallel with everything else. */
+
+/*
+  Palette sampled directly from flyer-original.png (2026-10-04): background
+  corner, the CONFERENCE headline's blue-violet-to-magenta gradient text, the
+  cyan accent dots, and the magenta "2.0" badge. Contrast against --color-bg
+  re-checked with the WCAG relative-luminance formula: cyan 11.1:1, magenta
+  5.5:1, text-dim 9.0:1 — all pass AA (4.5:1) for normal text.
+*/
+:root {
+  --color-bg: #0a0a16;
+  --color-bg-elevated: #14132a;
+  --color-gradient-start: #6a4df9;
+  --color-gradient-end: #fc03c0;
+  --color-cyan: #3ad6e0;
+  --color-magenta: #fc03c0;
+  --color-text: #f5f3ff;
+  --color-text-dim: #b6a8d9;
+  --color-border: rgba(58, 214, 224, 0.25);
+
+  --font-display: 'Rajdhani', 'Arial Narrow', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+main {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--color-cyan);
+}
+
+a {
+  color: inherit;
+}
+
+/* Visible, high-contrast focus ring for keyboard navigation. */
+:focus-visible {
+  outline: 3px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+/* Respect the user's motion preference: flatten any transition/animation
+   (glows, progress bars, smooth-scroll-to-error, overlay fades, etc.)
+   rather than hunting down every individual declaration. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.btn-primary {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  border-radius: var(--radius-md);
+  color: var(--color-bg);
+  background: linear-gradient(90deg, var(--color-cyan), var(--color-magenta));
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(0, 229, 255, 0.45), 0 0 48px rgba(255, 47, 224, 0.25);
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-primary:disabled,
+.btn-primary[aria-disabled='true'] {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-dim);
+  box-shadow: none;
+  cursor: not-allowed;
+  border: 1px solid var(--color-border);
+}
+
+.glow-gradient-bg {
+  background: radial-gradient(
+    circle at 50% 30%,
+    var(--color-gradient-start) 0%,
+    transparent 60%
+  ),
+  radial-gradient(circle at 50% 70%, var(--color-gradient-end) 0%, transparent 60%);
+}

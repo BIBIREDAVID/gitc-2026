@@ -1,0 +1,41 @@
+.simple-page {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.simple-card {
+  width: 100%;
+  max-width: 560px;
+  margin-top: 2rem;
+  padding: 1.75rem 1.5rem 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+}
+
+.simple-card h1 {
+  margin-top: 0.4rem;
+  font-size: 1.5rem;
+}
+
+.simple-card p {
+  margin-top: 1rem;
+  color: var(--color-text-dim);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.simple-back {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: var(--color-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.simple-back:hover {
+  text-decoration: underline;
+}

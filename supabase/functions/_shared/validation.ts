@@ -6,7 +6,7 @@
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const PICKUP_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom', 'other'];
+const PICKUP_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom', 'lasu_ojo', 'other'];
 const YES_NO_IDS = ['yes', 'no'];
 const GENDER_IDS = ['male', 'female', 'prefer_not_to_say'];
 const ROLE_IDS = [

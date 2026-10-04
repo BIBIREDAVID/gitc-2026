@@ -6,10 +6,11 @@ export const BUS_PICKUP_POINTS = [
   { id: 'medilag', label: 'MEDILAG (Idi-Araba)' },
   { id: 'yabatech', label: 'YABATECH (Yaba)' },
   { id: 'lasucom', label: 'LASUCOM (Ikeja)' },
+  { id: 'lasu_ojo', label: 'LASU (Ojo)' },
 ];
 
 export const BUS_NOTE =
-  'Buses will be available at UNILAG, MEDILAG, YABATECH and LASUCOM for transportation to the GITC 2026 event at LASU.';
+  'Buses will be available at UNILAG, MEDILAG, YABATECH, LASUCOM and LASU Ojo for transportation to the GITC 2026 event at LASU.';
 
 // Registration form, question 4: "Where will you be coming from?"
 export const PICKUP_POINTS = [
@@ -17,6 +18,7 @@ export const PICKUP_POINTS = [
   { id: 'medilag', label: 'MEDILAG - Idi-Araba' },
   { id: 'yabatech', label: 'YABATECH - Yaba' },
   { id: 'lasucom', label: 'LASUCOM - Ikeja' },
+  { id: 'lasu_ojo', label: 'LASU - Ojo' },
   { id: 'other', label: 'Other university/location' },
 ];
 

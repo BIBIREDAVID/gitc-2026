@@ -1,5 +1,6 @@
 import {
-  pickupLabel,
+  schoolLabel,
+  pickupPointLabel,
   roleLabel,
   genderLabel,
   interestsLabel,
@@ -13,7 +14,12 @@ export const REGISTRATION_COLUMNS = [
   { key: 'fullName', label: 'Name', value: (r) => r.fullName || '' },
   { key: 'email', label: 'Email', value: (r) => r.email || '' },
   { key: 'whatsapp', label: 'WhatsApp', value: (r) => r.whatsapp || '' },
-  { key: 'pickup', label: 'Pickup point', value: (r) => pickupLabel(r.pickup) },
+  { key: 'pickup', label: 'School', value: (r) => schoolLabel(r.pickup) },
+  {
+    key: 'pickupPoint',
+    label: 'Pickup point (mobilization)',
+    value: (r) => pickupPointLabel(r.pickupPoint),
+  },
   { key: 'isStudent', label: 'Student', value: (r) => yesNoLabel(r.isStudent) },
   { key: 'department', label: 'Department', value: (r) => r.department || '' },
   { key: 'laptop', label: 'Laptop', value: (r) => yesNoLabel(r.laptop) },

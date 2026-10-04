@@ -1,10 +1,17 @@
-import { PICKUP_POINTS, GENDER_OPTIONS, ROLE_OPTIONS, INTEREST_OPTIONS } from '../config/formOptions';
+import {
+  SCHOOL_OPTIONS,
+  BUS_PICKUP_POINTS,
+  GENDER_OPTIONS,
+  ROLE_OPTIONS,
+  INTEREST_OPTIONS,
+} from '../config/formOptions';
 
 function labelFromList(list, id) {
   return list.find((o) => o.id === id)?.label || id || '';
 }
 
-export const pickupLabel = (id) => labelFromList(PICKUP_POINTS, id);
+export const schoolLabel = (id) => labelFromList(SCHOOL_OPTIONS, id);
+export const pickupPointLabel = (id) => (id ? labelFromList(BUS_PICKUP_POINTS, id) : 'None');
 export const genderLabel = (id) => labelFromList(GENDER_OPTIONS, id);
 export const roleLabel = (id) => labelFromList(ROLE_OPTIONS, id);
 export const interestLabel = (id) => labelFromList(INTEREST_OPTIONS, id);

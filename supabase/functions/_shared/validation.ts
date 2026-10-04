@@ -7,6 +7,10 @@
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const PICKUP_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom', 'lasu_ojo', 'other'];
+// Bus pickup points for mobilization — a stricter subset of PICKUP_IDS:
+// optional, and excludes both 'lasu_ojo' (that's the venue, no bus needed
+// from there) and 'other' (it's a fixed list of actual bus routes).
+const PICKUP_POINT_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom'];
 const YES_NO_IDS = ['yes', 'no'];
 const GENDER_IDS = ['male', 'female', 'prefer_not_to_say'];
 const ROLE_IDS = [
@@ -80,6 +84,7 @@ export interface RegistrationPayload {
   whatsapp?: unknown;
   pickup?: unknown;
   pickupOther?: unknown;
+  pickupPoint?: unknown;
   isStudent?: unknown;
   department?: unknown;
   laptop?: unknown;
@@ -99,6 +104,7 @@ export interface ValidatedRegistration {
   whatsapp: string;
   pickup: string;
   pickupOther: string;
+  pickupPoint: string;
   isStudent: string;
   department: string;
   laptop: string;
@@ -135,6 +141,10 @@ export function validateAndNormalize(
     if (!nonEmptyString(payload.pickupOther)) return { ok: false };
     pickupOther = (payload.pickupOther as string).trim();
   }
+
+  // Optional — empty string means "not using a pickup point".
+  const pickupPoint = typeof payload.pickupPoint === 'string' ? payload.pickupPoint : '';
+  if (pickupPoint !== '' && !PICKUP_POINT_IDS.includes(pickupPoint)) return { ok: false };
 
   const isStudent = payload.isStudent as string;
   if (!YES_NO_IDS.includes(isStudent)) return { ok: false };
@@ -186,6 +196,7 @@ export function validateAndNormalize(
       whatsapp,
       pickup,
       pickupOther,
+      pickupPoint,
       isStudent,
       department,
       laptop,

@@ -1,4 +1,4 @@
-import { PICKUP_POINTS } from '../../config/formOptions';
+import { SCHOOL_OPTIONS } from '../../config/formOptions';
 
 export default function FiltersToolbar({ filters, onChange }) {
   function update(name, value) {
@@ -17,10 +17,10 @@ export default function FiltersToolbar({ filters, onChange }) {
       <select
         value={filters.pickup}
         onChange={(e) => update('pickup', e.target.value)}
-        aria-label="Filter by pickup point"
+        aria-label="Filter by school"
       >
-        <option value="">All pickup points</option>
-        {PICKUP_POINTS.map((p) => (
+        <option value="">All schools</option>
+        {SCHOOL_OPTIONS.map((p) => (
           <option key={p.id} value={p.id}>
             {p.label}
           </option>

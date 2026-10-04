@@ -9,6 +9,7 @@ function fromRow(row) {
     whatsapp: row.whatsapp,
     pickup: row.pickup,
     pickupOther: row.pickup_other,
+    pickupPoint: row.pickup_point,
     isStudent: row.is_student,
     department: row.department,
     laptop: row.laptop,

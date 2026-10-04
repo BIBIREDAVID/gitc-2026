@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { PICKUP_POINTS } from '../config/formOptions';
+import { SCHOOL_OPTIONS } from '../config/formOptions';
 
-function pickupLabel(id) {
-  return PICKUP_POINTS.find((p) => p.id === id)?.label || id;
+function schoolLabel(id) {
+  return SCHOOL_OPTIONS.find((p) => p.id === id)?.label || id;
 }
 
 function fromRow(row) {
@@ -70,7 +70,7 @@ export default function ManualSearch({ onCheckIn, busy, checkingInId }) {
             <div className="checkin-result-info">
               <div className="checkin-result-name">{r.fullName}</div>
               <div className="checkin-result-meta">
-                {r.whatsapp} · {pickupLabel(r.pickup)}
+                {r.whatsapp} · {schoolLabel(r.pickup)}
               </div>
             </div>
             {r.checkedIn ? (

@@ -51,6 +51,7 @@ Deno.serve(async (req) => {
     p_consent: data.consent,
     p_source: data.src || null,
     p_ticket_code: ticketCode,
+    p_pickup_point: data.pickupPoint,
   });
 
   if (error) {

@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { useEventSettings } from '../../lib/useEventSettings';
 import {
-  pickupLabel,
+  schoolLabel,
+  pickupPointLabel,
   genderLabel,
   roleLabel,
   interestLabel,
@@ -46,7 +47,8 @@ export default function StatsTab({ registrations, loading }) {
     return {
       total,
       checkedIn,
-      byPickup: countBy(registrations, (r) => r.pickup, pickupLabel),
+      bySchool: countBy(registrations, (r) => r.pickup, schoolLabel),
+      byPickupPoint: countBy(registrations, (r) => r.pickupPoint, pickupPointLabel),
       byLaptop: countBy(registrations, (r) => r.laptop, yesNoLabel),
       byStudent: countBy(registrations, (r) => r.isStudent, yesNoLabel),
       byRole: countBy(registrations, (r) => r.role, roleLabel),
@@ -81,7 +83,8 @@ export default function StatsTab({ registrations, loading }) {
         )}
       </div>
 
-      <BarList title="By pickup point" data={stats.byPickup} />
+      <BarList title="By school" data={stats.bySchool} />
+      <BarList title="By pickup point (mobilization)" data={stats.byPickupPoint} />
       <BarList title="Has a laptop" data={stats.byLaptop} />
       <BarList title="Is a student" data={stats.byStudent} />
       <BarList title="By role" data={stats.byRole} />

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  PICKUP_POINTS,
+  SCHOOL_OPTIONS,
+  BUS_PICKUP_POINTS,
   BUS_NOTE,
   YES_NO,
   GENDER_OPTIONS,
@@ -30,7 +31,7 @@ const STEP_LABELS = ['About you', 'Logistics', 'Interests & consent'];
 
 const STEP_FIELDS = [
   ['fullName', 'email', 'whatsapp'],
-  ['pickup', 'pickupOther', 'isStudent', 'department', 'laptop'],
+  ['pickup', 'pickupOther', 'pickupPoint', 'isStudent', 'department', 'laptop'],
   ['gender', 'role', 'roleOther', 'interests', 'interestsOther', 'consent'],
 ];
 
@@ -40,6 +41,7 @@ const initialForm = {
   whatsapp: '',
   pickup: '',
   pickupOther: '',
+  pickupPoint: '',
   isStudent: '',
   department: '',
   laptop: '',
@@ -235,6 +237,7 @@ export default function Register() {
       whatsapp: form.whatsapp,
       pickup: form.pickup,
       pickupOther: form.pickup === OTHER_OPTION_ID ? form.pickupOther : '',
+      pickupPoint: form.pickupPoint,
       isStudent: form.isStudent,
       department: form.isStudent === 'yes' ? form.department : '',
       laptop: form.laptop,
@@ -339,13 +342,12 @@ export default function Register() {
               <RadioGroup
                 ref={(el) => (fieldRefs.current.pickup = el)}
                 id="pickup"
-                legend="Where will you be coming from?"
+                legend="What school are you coming from?"
                 required
-                options={PICKUP_POINTS}
+                options={SCHOOL_OPTIONS}
                 value={form.pickup}
                 onChange={(val) => setField('pickup', val)}
                 error={errors.pickup}
-                hint={BUS_NOTE}
               />
               {form.pickup === OTHER_OPTION_ID && (
                 <TextField
@@ -359,6 +361,16 @@ export default function Register() {
                   error={errors.pickupOther}
                 />
               )}
+
+              <RadioGroup
+                ref={(el) => (fieldRefs.current.pickupPoint = el)}
+                id="pickupPoint"
+                legend="Pickup point for mobilization (optional)"
+                options={BUS_PICKUP_POINTS}
+                value={form.pickupPoint}
+                onChange={(val) => setField('pickupPoint', val)}
+                hint={BUS_NOTE}
+              />
 
               <RadioGroup
                 ref={(el) => (fieldRefs.current.isStudent = el)}

@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { applyFilters } from '../filterRegistrations';
 import {
-  pickupLabel,
+  schoolLabel,
+  pickupPointLabel,
   genderLabel,
   roleLabel,
   interestsLabel,
@@ -69,7 +70,8 @@ export default function RegistrationsTab({ registrations, loading, filters, setF
               <th>Name</th>
               <th>Email</th>
               <th>WhatsApp</th>
-              <th>Pickup</th>
+              <th>School</th>
+              <th>Pickup point</th>
               <th>Student</th>
               <th>Department</th>
               <th>Laptop</th>
@@ -88,7 +90,8 @@ export default function RegistrationsTab({ registrations, loading, filters, setF
                 <td>{r.fullName}</td>
                 <td>{r.email}</td>
                 <td>{r.whatsapp}</td>
-                <td>{pickupLabel(r.pickup)}</td>
+                <td>{schoolLabel(r.pickup)}</td>
+                <td>{pickupPointLabel(r.pickupPoint)}</td>
                 <td>{yesNoLabel(r.isStudent)}</td>
                 <td>{r.department || '—'}</td>
                 <td>{yesNoLabel(r.laptop)}</td>
@@ -126,10 +129,13 @@ export default function RegistrationsTab({ registrations, loading, filters, setF
               <span>{r.whatsapp}</span>
             </div>
             <div className="admin-reg-card-row">
-              <span>{pickupLabel(r.pickup)}</span>
+              <span>{schoolLabel(r.pickup)}</span>
               <span className={`admin-badge ${r.checkedIn ? 'admin-badge-yes' : ''}`}>
                 {r.checkedIn ? 'Checked in' : 'Not checked in'}
               </span>
+            </div>
+            <div className="admin-reg-card-row">
+              <span>Pickup point: {pickupPointLabel(r.pickupPoint)}</span>
             </div>
             <div className="admin-reg-card-row">
               <span>Student: {yesNoLabel(r.isStudent)}</span>

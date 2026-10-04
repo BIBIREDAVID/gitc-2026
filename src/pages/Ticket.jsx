@@ -3,12 +3,12 @@ import { useParams, Link } from 'react-router-dom';
 import QRCode from 'qrcode';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { useEventSettings } from '../lib/useEventSettings';
-import { PICKUP_POINTS } from '../config/formOptions';
+import { SCHOOL_OPTIONS } from '../config/formOptions';
 import { buildGoogleCalendarUrl, buildIcsContent, downloadIcs } from '../lib/calendar';
 import './Ticket.css';
 
-function pickupLabel(id) {
-  return PICKUP_POINTS.find((p) => p.id === id)?.label || id;
+function schoolLabel(id) {
+  return SCHOOL_OPTIONS.find((p) => p.id === id)?.label || id;
 }
 
 export default function Ticket() {
@@ -100,7 +100,7 @@ export default function Ticket() {
 
       ctx.fillStyle = '#b6a8d9';
       ctx.font = '400 20px sans-serif';
-      ctx.fillText(`Pickup: ${pickupLabel(ticket.pickup)}`, width / 2, 220);
+      ctx.fillText(`School: ${schoolLabel(ticket.pickup)}`, width / 2, 220);
 
       const qrImg = await loadImage(qrDataUrl);
       const qrSize = 420;
@@ -210,7 +210,7 @@ export default function Ticket() {
 
         <div className="ticket-details">
           <p className="ticket-name">{ticket.fullName}</p>
-          <p className="ticket-pickup">Pickup: {pickupLabel(ticket.pickup)}</p>
+          <p className="ticket-pickup">School: {schoolLabel(ticket.pickup)}</p>
           <p className="ticket-code mono-label">{code}</p>
         </div>
 

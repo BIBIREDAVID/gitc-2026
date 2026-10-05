@@ -161,25 +161,12 @@
   min-height: 48px;
 }
 
+/* .btn-secondary's base styling lives in theme.css (shared across Register,
+   admin, and check-in — same reasoning as the .field move above). This
+   just adds the register nav bar's own sizing on top of it. */
 .btn-secondary {
   flex: 1;
   min-height: 48px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 1rem;
-  padding: 0.85rem 1.5rem;
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  background: transparent;
-  border: 1px solid var(--color-border);
-  cursor: pointer;
-}
-
-.btn-secondary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 @media (min-width: 640px) {

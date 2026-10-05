@@ -15,11 +15,24 @@ import ConfirmDialog from '../components/ConfirmDialog';
 
 const PAGE_SIZE = 20;
 
+function resendResultMessage({ total, sent, skipped, failed }) {
+  if (skipped === total) return 'Email sending is currently off — nothing was sent.';
+  let msg = `Sent ${sent} of ${total}.`;
+  if (failed) msg += ` ${failed} failed.`;
+  if (skipped) msg += ` ${skipped} skipped (email off).`;
+  return msg;
+}
+
 export default function RegistrationsTab({ registrations, loading, filters, setFilters }) {
   const [page, setPage] = useState(1);
   const [pendingDelete, setPendingDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState(null);
+  const [resendingId, setResendingId] = useState(null);
+  const [resendRowStatus, setResendRowStatus] = useState(null); // { id, text }
+  const [resendAllPending, setResendAllPending] = useState(false);
+  const [resendingAll, setResendingAll] = useState(false);
+  const [resendAllStatus, setResendAllStatus] = useState(null);
 
   const filtered = useMemo(() => applyFilters(registrations, filters), [registrations, filters]);
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -51,6 +64,40 @@ export default function RegistrationsTab({ registrations, loading, filters, setF
     setDeleting(false);
   }
 
+  async function handleResendOne(reg) {
+    setResendingId(reg.id);
+    setResendRowStatus(null);
+    const { data, error } = await supabase.functions.invoke('resend-ticket-email', {
+      body: { registrationId: reg.id },
+    });
+    setResendingId(null);
+    if (error) {
+      setResendRowStatus({ id: reg.id, text: 'Failed to resend.' });
+    } else if (data.skipped > 0) {
+      setResendRowStatus({ id: reg.id, text: 'Email sending is off.' });
+    } else if (data.sent > 0) {
+      setResendRowStatus({ id: reg.id, text: 'Sent.' });
+    } else {
+      setResendRowStatus({ id: reg.id, text: 'Failed to send.' });
+    }
+    setTimeout(() => setResendRowStatus((s) => (s?.id === reg.id ? null : s)), 4000);
+  }
+
+  async function confirmResendAll() {
+    setResendingAll(true);
+    setResendAllStatus(null);
+    const { data, error } = await supabase.functions.invoke('resend-ticket-email', {
+      body: { registrationIds: filtered.map((r) => r.id) },
+    });
+    setResendingAll(false);
+    if (error) {
+      setResendAllStatus('Failed to resend. Please try again.');
+    } else {
+      setResendAllStatus(resendResultMessage(data));
+      setResendAllPending(false);
+    }
+  }
+
   if (loading) return <p className="mono-label">Loading registrations…</p>;
 
   return (
@@ -59,9 +106,20 @@ export default function RegistrationsTab({ registrations, loading, filters, setF
 
       <FiltersToolbar filters={filters} onChange={handleFiltersChange} />
 
-      <p className="admin-count">
-        {filtered.length} of {registrations.length} registrations
-      </p>
+      <div className="admin-count-row">
+        <p className="admin-count">
+          {filtered.length} of {registrations.length} registrations
+        </p>
+        <button
+          type="button"
+          className="btn-secondary"
+          onClick={() => setResendAllPending(true)}
+          disabled={filtered.length === 0}
+        >
+          Resend all ({filtered.length})
+        </button>
+      </div>
+      {resendAllStatus && <p className="admin-save-status">{resendAllStatus}</p>}
 
       <div className="admin-table-wrap">
         <table className="admin-table">
@@ -81,6 +139,7 @@ export default function RegistrationsTab({ registrations, loading, filters, setF
               <th>Source</th>
               <th onClick={toggleSort}>Registered at {filters.sortDir === 'desc' ? '↓' : '↑'}</th>
               <th>Checked in</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -104,6 +163,20 @@ export default function RegistrationsTab({ registrations, loading, filters, setF
                   <span className={`admin-badge ${r.checkedIn ? 'admin-badge-yes' : ''}`}>
                     {r.checkedIn ? 'Yes' : 'No'}
                   </span>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={() => handleResendOne(r)}
+                    disabled={resendingId === r.id}
+                  >
+                    {resendingId === r.id
+                      ? 'Sending…'
+                      : resendRowStatus?.id === r.id
+                        ? resendRowStatus.text
+                        : 'Resend'}
+                  </button>
                 </td>
                 <td>
                   <button
@@ -150,6 +223,20 @@ export default function RegistrationsTab({ registrations, loading, filters, setF
             </div>
             <div className="admin-reg-card-row">
               <span>{formatDateTime(r.createdAt)}</span>
+            </div>
+            <div className="admin-reg-card-row">
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={() => handleResendOne(r)}
+                disabled={resendingId === r.id}
+              >
+                {resendingId === r.id
+                  ? 'Sending…'
+                  : resendRowStatus?.id === r.id
+                    ? resendRowStatus.text
+                    : 'Resend'}
+              </button>
               <button
                 type="button"
                 className="admin-delete-btn"
@@ -194,6 +281,19 @@ export default function RegistrationsTab({ registrations, loading, filters, setF
         <p className="admin-error" role="alert">
           {deleteError}
         </p>
+      )}
+
+      {resendAllPending && (
+        <ConfirmDialog
+          title="Resend all ticket emails?"
+          message={`This resends the ticket confirmation email to all ${filtered.length} currently filtered registration${filtered.length === 1 ? '' : 's'}. People who already have their ticket will get it again.`}
+          confirmLabel="Resend all"
+          busyLabel="Sending…"
+          destructive={false}
+          onConfirm={confirmResendAll}
+          onCancel={() => setResendAllPending(false)}
+          busy={resendingAll}
+        />
       )}
     </section>
   );

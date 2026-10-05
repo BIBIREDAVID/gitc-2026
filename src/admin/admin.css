@@ -275,7 +275,21 @@
 .admin-count {
   font-size: 0.8rem;
   color: var(--color-text-dim);
+}
+
+.admin-count-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
   margin-bottom: 0.75rem;
+}
+
+.admin-count-row .btn-secondary {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  min-height: auto;
 }
 
 .admin-table-wrap {

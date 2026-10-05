@@ -1,4 +1,13 @@
-export default function ConfirmDialog({ title, message, confirmLabel, onConfirm, onCancel, busy }) {
+export default function ConfirmDialog({
+  title,
+  message,
+  confirmLabel,
+  busyLabel,
+  destructive = true,
+  onConfirm,
+  onCancel,
+  busy,
+}) {
   return (
     <div className="admin-dialog-overlay" role="presentation" onClick={onCancel}>
       <div
@@ -14,8 +23,13 @@ export default function ConfirmDialog({ title, message, confirmLabel, onConfirm,
           <button type="button" className="btn-secondary" onClick={onCancel} disabled={busy}>
             Cancel
           </button>
-          <button type="button" className="admin-delete-btn" onClick={onConfirm} disabled={busy}>
-            {busy ? 'Deleting…' : confirmLabel || 'Delete'}
+          <button
+            type="button"
+            className={destructive ? 'admin-delete-btn' : 'btn-primary'}
+            onClick={onConfirm}
+            disabled={busy}
+          >
+            {busy ? busyLabel || 'Working…' : confirmLabel || 'Delete'}
           </button>
         </div>
       </div>

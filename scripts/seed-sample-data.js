@@ -11,11 +11,15 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
+// Matches supabase/functions/_shared/ticketCode.ts's 7-char human-friendly
+// scheme, kept in sync by hand since this script doesn't import Edge
+// Function code.
+const TICKET_ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
 function ticketCode() {
-  const bytes = crypto.getRandomValues(new Uint8Array(16));
-  let binary = '';
-  for (const b of bytes) binary += String.fromCharCode(b);
-  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const bytes = crypto.getRandomValues(new Uint8Array(7));
+  let code = '';
+  for (const b of bytes) code += TICKET_ALPHABET[b % TICKET_ALPHABET.length];
+  return code;
 }
 
 const sample = [

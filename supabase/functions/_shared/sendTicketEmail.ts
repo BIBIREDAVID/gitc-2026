@@ -108,7 +108,7 @@ export async function sendTicketEmailIfEnabled(
     fullName: record.full_name,
     ticketCode: record.ticket_code,
     eventDateTime: settings.date_time,
-    eventVenue: settings.venue || 'LASU',
+    eventVenue: settings.venue || 'LASU, Makojuola Hall',
   });
 
   return ok ? 'sent' : 'failed';

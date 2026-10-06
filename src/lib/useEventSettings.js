@@ -4,7 +4,7 @@ import { supabase, isSupabaseConfigured } from './supabase';
 export const DEFAULT_EVENT_SETTINGS = {
   title: 'Get Into Tech Conference 2.0',
   dateTime: null,
-  venue: 'LASU',
+  venue: 'LASU, Makojuola Hall',
   capacity: null,
   registrationOpen: true,
   registrationDeadline: null,

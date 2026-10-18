@@ -121,7 +121,6 @@ input:-webkit-autofill:active {
   background: linear-gradient(90deg, var(--color-cyan), var(--color-magenta));
   border: none;
   cursor: pointer;
-  box-shadow: 0 0 24px rgba(0, 229, 255, 0.45), 0 0 48px rgba(255, 47, 224, 0.25);
   text-decoration: none;
   text-align: center;
 }
@@ -221,13 +220,4 @@ input:-webkit-autofill:active {
 .field[aria-invalid='true'] input,
 .field input[aria-invalid='true'] {
   border-color: var(--color-magenta);
-}
-
-.glow-gradient-bg {
-  background: radial-gradient(
-    circle at 50% 30%,
-    var(--color-gradient-start) 0%,
-    transparent 60%
-  ),
-  radial-gradient(circle at 50% 70%, var(--color-gradient-end) 0%, transparent 60%);
 }

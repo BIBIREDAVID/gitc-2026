@@ -17,16 +17,6 @@
   padding-top: 2.5rem;
 }
 
-.hero-glow {
-  position: absolute;
-  inset: -10% -20% auto -20%;
-  height: 90%;
-  filter: blur(40px);
-  opacity: 0.8;
-  z-index: 0;
-  pointer-events: none;
-}
-
 .hero-flyer-wrap {
   position: relative;
   z-index: 1;
@@ -35,7 +25,6 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--color-border);
-  box-shadow: 0 0 60px rgba(0, 229, 255, 0.2), 0 0 100px rgba(255, 47, 224, 0.15);
 }
 
 .hero-flyer {
@@ -155,7 +144,6 @@
   height: 8px;
   border-radius: 50%;
   background: var(--color-cyan);
-  box-shadow: 0 0 8px var(--color-cyan);
   flex-shrink: 0;
 }
 

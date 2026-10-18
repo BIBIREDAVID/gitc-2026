@@ -27,7 +27,6 @@ export default function Landing() {
   return (
     <div className="landing">
       <section className="hero">
-        <div className="hero-glow glow-gradient-bg" aria-hidden="true" />
         <div className="hero-flyer-wrap">
           <picture>
             <source srcSet="/flyer.webp" type="image/webp" />

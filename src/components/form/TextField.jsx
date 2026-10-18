@@ -44,6 +44,11 @@ const TextField = forwardRef(function TextField(
         aria-describedby={error ? `${id}-error` : undefined}
         aria-required={required || undefined}
       />
+      {maxLength != null && (
+        <p className="field-count" aria-hidden="true">
+          {(value || '').length}/{maxLength}
+        </p>
+      )}
       {error && (
         <p className="field-error" id={`${id}-error`} role="alert">
           {error}

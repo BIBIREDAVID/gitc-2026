@@ -16,6 +16,9 @@ import {
   validateEmail,
   normalizePhone,
   validateInterests,
+  validateRequiredText,
+  MAX_NAME_LEN,
+  MAX_FREE_TEXT_LEN,
 } from '../lib/validation';
 import { submitRegistration, RegistrationError } from '../lib/api';
 import TextField from '../components/form/TextField';
@@ -55,6 +58,29 @@ const initialForm = {
   src: '',
 };
 
+const GENDER_IDS = GENDER_OPTIONS.map((o) => o.id);
+const ROLE_IDS = ROLE_OPTIONS.map((o) => o.id);
+const PICKUP_IDS = SCHOOL_OPTIONS.map((o) => o.id);
+const PICKUP_POINT_IDS = BUS_PICKUP_POINTS.map((o) => o.id);
+const INTEREST_IDS = INTEREST_OPTIONS.map((o) => o.id);
+
+// A draft can be older than the current option lists (e.g. started before
+// gender or interests were trimmed down) — drop any saved value that no
+// longer exists so it doesn't sail through client validation (which only
+// checks "something is selected") and then get rejected by the server's
+// stricter option-membership check with a generic "invalid" error.
+function sanitizeDraftForm(saved) {
+  const next = { ...saved };
+  if (next.gender && !GENDER_IDS.includes(next.gender)) next.gender = '';
+  if (next.role && !ROLE_IDS.includes(next.role)) next.role = '';
+  if (next.pickup && !PICKUP_IDS.includes(next.pickup)) next.pickup = '';
+  if (next.pickupPoint && !PICKUP_POINT_IDS.includes(next.pickupPoint)) next.pickupPoint = '';
+  if (Array.isArray(next.interests)) {
+    next.interests = next.interests.filter((id) => INTEREST_IDS.includes(id));
+  }
+  return next;
+}
+
 function validateStep(index, form) {
   const errors = {};
 
@@ -71,12 +97,14 @@ function validateStep(index, form) {
 
   if (index === 1) {
     if (!form.pickup) errors.pickup = 'Select where you will be coming from.';
-    if (form.pickup === OTHER_OPTION_ID && !form.pickupOther.trim()) {
-      errors.pickupOther = 'Tell us your university or location.';
+    if (form.pickup === OTHER_OPTION_ID) {
+      const err = validateRequiredText(form.pickupOther, 'Tell us your university or location.');
+      if (err) errors.pickupOther = err;
     }
     if (!form.isStudent) errors.isStudent = 'Let us know if you are a student.';
-    if (form.isStudent === 'yes' && !form.department.trim()) {
-      errors.department = 'Enter your department.';
+    if (form.isStudent === 'yes') {
+      const err = validateRequiredText(form.department, 'Enter your department.');
+      if (err) errors.department = err;
     }
     if (!form.laptop) errors.laptop = 'Let us know if you have a functional laptop.';
   }
@@ -84,13 +112,18 @@ function validateStep(index, form) {
   if (index === 2) {
     if (!form.gender) errors.gender = 'Select your gender.';
     if (!form.role) errors.role = 'Select what best describes you.';
-    if (form.role === OTHER_OPTION_ID && !form.roleOther.trim()) {
-      errors.roleOther = 'Tell us what best describes you.';
+    if (form.role === OTHER_OPTION_ID) {
+      const err = validateRequiredText(form.roleOther, 'Tell us what best describes you.');
+      if (err) errors.roleOther = err;
     }
     const interestsErr = validateInterests(form.interests);
     if (interestsErr) errors.interests = interestsErr;
-    if (form.interests.includes(OTHER_OPTION_ID) && !form.interestsOther.trim()) {
-      errors.interestsOther = 'Tell us what else you are interested in.';
+    if (form.interests.includes(OTHER_OPTION_ID)) {
+      const err = validateRequiredText(
+        form.interestsOther,
+        'Tell us what else you are interested in.'
+      );
+      if (err) errors.interestsOther = err;
     }
     if (!form.consent) errors.consent = 'You need to agree before registering.';
   }
@@ -129,7 +162,7 @@ export default function Register() {
       const raw = sessionStorage.getItem(DRAFT_KEY);
       if (raw) {
         const saved = JSON.parse(raw);
-        if (saved?.form) setForm((f) => ({ ...f, ...saved.form }));
+        if (saved?.form) setForm((f) => ({ ...f, ...sanitizeDraftForm(saved.form) }));
         if (typeof saved?.step === 'number') setStep(saved.step);
       }
     } catch {
@@ -303,6 +336,7 @@ export default function Register() {
                 label="Full name"
                 required
                 autoComplete="name"
+                maxLength={MAX_NAME_LEN}
                 placeholder="e.g. Ada Lovelace"
                 value={form.fullName}
                 onChange={(e) => setField('fullName', e.target.value)}
@@ -355,6 +389,7 @@ export default function Register() {
                   id="pickupOther"
                   label="Your university or location"
                   required
+                  maxLength={MAX_FREE_TEXT_LEN}
                   placeholder="e.g. University of Lagos"
                   value={form.pickupOther}
                   onChange={(e) => setField('pickupOther', e.target.value)}
@@ -388,6 +423,7 @@ export default function Register() {
                   id="department"
                   label="Which department are you in?"
                   required
+                  maxLength={MAX_FREE_TEXT_LEN}
                   placeholder="e.g. Computer Science"
                   value={form.department}
                   onChange={(e) => setField('department', e.target.value)}
@@ -437,6 +473,7 @@ export default function Register() {
                   id="roleOther"
                   label="Tell us more"
                   required
+                  maxLength={MAX_FREE_TEXT_LEN}
                   placeholder="What best describes you?"
                   value={form.roleOther}
                   onChange={(e) => setField('roleOther', e.target.value)}
@@ -461,6 +498,7 @@ export default function Register() {
                   id="interestsOther"
                   label="Tell us more"
                   required
+                  maxLength={MAX_FREE_TEXT_LEN}
                   placeholder="What else are you interested in?"
                   value={form.interestsOther}
                   onChange={(e) => setField('interestsOther', e.target.value)}

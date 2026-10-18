@@ -13,6 +13,7 @@ const TextField = forwardRef(function TextField(
     inputMode,
     placeholder,
     hint,
+    maxLength,
   },
   ref
 ) {
@@ -38,6 +39,7 @@ const TextField = forwardRef(function TextField(
         autoComplete={autoComplete}
         inputMode={inputMode}
         placeholder={placeholder}
+        maxLength={maxLength}
         aria-invalid={error ? 'true' : 'false'}
         aria-describedby={error ? `${id}-error` : undefined}
         aria-required={required || undefined}

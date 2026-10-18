@@ -1,9 +1,17 @@
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Mirrors the caps in supabase/functions/_shared/validation.ts — the server
+// is the source of truth, but the client needs to know the same numbers so
+// it can reject (with a helpful message) before submitting, instead of
+// letting the server bounce a too-long value back as a generic "invalid".
+export const MAX_NAME_LEN = 100;
+export const MAX_FREE_TEXT_LEN = 200;
+
 export function validateFullName(value) {
   const trimmed = (value || '').trim();
   if (!trimmed) return 'Enter your full name.';
   if (trimmed.length < 2) return 'Name must be at least 2 characters.';
+  if (trimmed.length > MAX_NAME_LEN) return `Name must be ${MAX_NAME_LEN} characters or fewer.`;
   return null;
 }
 
@@ -47,7 +55,11 @@ export function validateRequiredChoice(value, message) {
 }
 
 export function validateRequiredText(value, message) {
-  if (!(value || '').trim()) return message || 'This field is required.';
+  const trimmed = (value || '').trim();
+  if (!trimmed) return message || 'This field is required.';
+  if (trimmed.length > MAX_FREE_TEXT_LEN) {
+    return `Please keep this to ${MAX_FREE_TEXT_LEN} characters or fewer.`;
+  }
   return null;
 }
 

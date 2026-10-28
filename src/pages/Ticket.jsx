@@ -191,7 +191,7 @@ export default function Ticket() {
   const calendarEvent = showCalendar
     ? {
         title: settings.title || 'Get Into Tech Conference 2.0',
-        description: 'GITC 2026 — Get Into Tech Conference 2.0, in partnership with Zenith Bank.',
+        description: 'GITC 2026 — Get Into Tech Conference 2.0, in partnership with Zenith Bank & Tumbs.',
         location: settings.venue || 'LASU',
         dateTime: settings.dateTime,
         uid: code,

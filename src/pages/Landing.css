@@ -159,6 +159,14 @@
   border-top: 1px solid var(--color-border);
 }
 
+.partner-logos {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .zenith-logo {
   height: 32px;
   width: auto;

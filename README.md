@@ -1,7 +1,7 @@
 # GITC 2026 — Registration Site
 
 Free registration site for GITC — Get Into Tech Conference 2.0, at LASU, in
-partnership with Zenith Bank. See [CLAUDE.md](CLAUDE.md) for the full project
+partnership with Zenith Bank & Tumbs. See [CLAUDE.md](CLAUDE.md) for the full project
 brief and implementation notes (including the Firebase → Supabase migration
 history, if you're curious why some older notes mention Firebase).
 

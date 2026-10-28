@@ -22,7 +22,7 @@ export default function Footer() {
           <img
             src="/tumbs-logo.webp"
             alt="Tumbs logo"
-            className="zenith-logo"
+            className="tumbs-logo"
             loading="lazy"
             decoding="async"
             onError={() => setTumbsLogoFailed(true)}

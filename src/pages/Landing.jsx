@@ -35,7 +35,7 @@ export default function Landing() {
               alt="GITC 2026 event flyer"
               className="hero-flyer"
               width={1080}
-              height={1080}
+              height={1265}
               fetchPriority="high"
               decoding="async"
             />

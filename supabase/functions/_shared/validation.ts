@@ -6,7 +6,7 @@
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const PICKUP_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom', 'lasu_ojo', 'other'];
+const PICKUP_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom', 'lasu_ojo', 'lasustech', 'other'];
 // Bus pickup points for mobilization — a stricter subset of PICKUP_IDS:
 // optional, and excludes both 'lasu_ojo' (that's the venue, no bus needed
 // from there) and 'other' (it's a fixed list of actual bus routes).

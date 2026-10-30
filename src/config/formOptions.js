@@ -23,6 +23,7 @@ export const SCHOOL_OPTIONS = [
   { id: 'yabatech', label: 'YABATECH - Yaba' },
   { id: 'lasucom', label: 'LASUCOM - Ikeja' },
   { id: 'lasu_ojo', label: 'LASU - Ojo' },
+  { id: 'lasustech', label: 'LASUSTECH - Ikorodu' },
   { id: 'other', label: 'Other university/location' },
 ];
 

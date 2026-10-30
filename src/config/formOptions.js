@@ -9,10 +9,11 @@ export const BUS_PICKUP_POINTS = [
   { id: 'medilag', label: 'MEDILAG (Idi-Araba)' },
   { id: 'yabatech', label: 'YABATECH (Yaba)' },
   { id: 'lasucom', label: 'LASUCOM (Ikeja)' },
+  { id: 'lasustech', label: 'LASUSTECH (Ikorodu)' },
 ];
 
 export const BUS_NOTE =
-  'Buses will be available at UNILAG, MEDILAG, YABATECH and LASUCOM for transportation to the GITC 2026 event at LASU.';
+  'Buses will be available at UNILAG, MEDILAG, YABATECH, LASUCOM and LASUSTECH for transportation to the GITC 2026 event at LASU.';
 
 // Registration form, question: "What school are you coming from?" — every
 // school, including LASU Ojo (someone can be coming from the venue's own

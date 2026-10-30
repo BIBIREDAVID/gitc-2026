@@ -10,7 +10,7 @@ const PICKUP_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom', 'lasu_ojo', 'las
 // Bus pickup points for mobilization — a stricter subset of PICKUP_IDS:
 // optional, and excludes both 'lasu_ojo' (that's the venue, no bus needed
 // from there) and 'other' (it's a fixed list of actual bus routes).
-const PICKUP_POINT_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom'];
+const PICKUP_POINT_IDS = ['unilag', 'medilag', 'yabatech', 'lasucom', 'lasustech'];
 const YES_NO_IDS = ['yes', 'no'];
 const GENDER_IDS = ['male', 'female'];
 const ROLE_IDS = [

@@ -8,6 +8,7 @@ import SettingsTab from './tabs/SettingsTab';
 import RegistrationsTab from './tabs/RegistrationsTab';
 import StatsTab from './tabs/StatsTab';
 import ExportTab from './tabs/ExportTab';
+import EmailTab from './tabs/EmailTab';
 import './admin.css';
 
 const TABS = [
@@ -15,6 +16,7 @@ const TABS = [
   { id: 'registrations', label: 'Registrations' },
   { id: 'stats', label: 'Stats' },
   { id: 'export', label: 'Export' },
+  { id: 'email', label: 'Email' },
 ];
 
 export default function AdminApp() {
@@ -75,6 +77,7 @@ export default function AdminApp() {
           />
         )}
         {activeTab === 'stats' && <StatsTab registrations={registrations} loading={loading} />}
+        {activeTab === 'email' && <EmailTab registrations={registrations} loading={loading} />}
         {activeTab === 'export' && (
           <ExportTab
             registrations={registrations}

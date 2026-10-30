@@ -33,14 +33,14 @@ function formatLagos(isoString: string | null): string {
   return `${WEEKDAYS[lagos.getUTCDay()]}, ${MONTHS[lagos.getUTCMonth()]} ${lagos.getUTCDate()}, ${lagos.getUTCFullYear()} · ${hours12}:${pad(lagos.getUTCMinutes())} ${ampm} WAT`;
 }
 
-function gmailConfig() {
+export function gmailConfig() {
   const address = Deno.env.get('GMAIL_ADDRESS');
   const appPassword = Deno.env.get('GMAIL_APP_PASSWORD');
   if (!address || !appPassword) return null;
   return { address, appPassword };
 }
 
-function escapeHtml(value: string): string {
+export function escapeHtml(value: string): string {
   return value.replace(/[&<>"']/g, (c) => ({
     '&': '&amp;',
     '<': '&lt;',
